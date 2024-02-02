@@ -1,4 +1,10 @@
-import { Text, View, Platform, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Platform,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -18,7 +24,9 @@ const HomeScreen = () => {
         <StatusBar style="light" />
         <View className="flex-row justify-between items-center mx4">
           {/* options icon */}
-          <Bars3CenterLeftIcon size="30" strokeWidth={2} color="white" />
+          <TouchableOpacity>
+            <Bars3CenterLeftIcon size="30" strokeWidth={2} color="white" />
+          </TouchableOpacity>
           {/* "movies" text */}
           <Text className="text-white text-3xl font-bold">
             <Text style={styles.text}>M</Text>ovies
@@ -29,6 +37,14 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+
+      {/* scrollview */}
+      <ScrollView
+        showsVerticalIndicator={false}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
+        {/* trending movies section */}
+      </ScrollView>
     </View>
   );
 };
