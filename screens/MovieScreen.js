@@ -6,7 +6,7 @@ import {
   Dimensions,
 } from "react-native";
 import React, { useEffect } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
@@ -16,6 +16,7 @@ var { width, height } = Dimensions.get("window");
 
 const MovieScreen = () => {
   const { params: item } = useRoute();
+  const navigation = useNavigation();
 
   useEffect(() => {
     //  call the api
@@ -37,6 +38,7 @@ const MovieScreen = () => {
           <TouchableOpacity
             style={styles.background}
             className="rounded-xl p-1"
+            onPress={() => navigation.goBack()}
           >
             <ChevronLeftIcon size="28" strokeWidth={2.5} color="white" />
           </TouchableOpacity>
