@@ -8,7 +8,8 @@ import {
 import React, { useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
+import { ChevronLeftIcon } from "react-native-heroicons/outline";
+import { HeartIcon } from "react-native-heroicons/solid";
 import { styles } from "../theme";
 
 var { width, height } = Dimensions.get("window");
