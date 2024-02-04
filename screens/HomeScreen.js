@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -13,14 +13,17 @@ import {
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
 import { styles } from "../theme";
+import TrendingMovies from "../components/TrendingMovies";
 
 const platform = Platform.OS == "android";
 
 const HomeScreen = () => {
+  const [trending, setTrending] = useState([1, 2, 3]);
+
   return (
     <View className="flex-1 bg-neutral-800">
       {/* top head section */}
-      <SafeAreaView className={platform ? "mb-3" : "-mb-2"}>
+      <SafeAreaView className={platform ? "mb-3 mx-2" : "-mb-2 mx-2"}>
         <StatusBar style="light" />
         <View className="flex-row justify-between items-center mx4">
           {/* options icon */}
@@ -42,8 +45,10 @@ const HomeScreen = () => {
       <ScrollView
         showsVerticalIndicator={false}
         contentContainerStyle={{ paddingBottom: 10 }}
+        className="mx-2"
       >
         {/* trending movies section */}
+        <TrendingMovies data={trending} />
       </ScrollView>
     </View>
   );
