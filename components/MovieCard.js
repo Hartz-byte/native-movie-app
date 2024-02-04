@@ -3,9 +3,9 @@ import React from "react";
 
 var { width, height } = Dimensions.get("window");
 
-const MovieCard = ({ item }) => {
+const MovieCard = ({ item, handleClick }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handleClick}>
       <Image
         source={require("../assets/images/moviePoster1.png")}
         style={{ width: width * 0.6, height: height * 0.4 }}
