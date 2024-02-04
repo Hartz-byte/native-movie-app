@@ -55,6 +55,9 @@ const HomeScreen = () => {
 
         {/* upcmonig movies */}
         <MovieList title="Upcoming" data={upcoming} />
+
+        {/* top rated movies */}
+        <MovieList title="Top Rated" data={topRated} />
       </ScrollView>
     </View>
   );
