@@ -1,14 +1,53 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import React, { useEffect } from "react";
+import { useRoute } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
+import { styles } from "../theme";
+
+var { width, height } = Dimensions.get("window");
 
 const MovieScreen = () => {
+  const { params: item } = useRoute();
+
+  useEffect(() => {
+    //  call the api
+  }, [item]);
+
   return (
-    <View>
-      <Text>MovieScreen</Text>
-    </View>
-  )
-}
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: 20 }}
+      className="flex-1 bg-neutral-900"
+    >
+      {/* back btn and movie poster */}
+      <View className="w-full">
+        <SafeAreaView
+          className={
+            "z-20 w-full flex-row justify-between items-center px-4 mt-3"
+          }
+        >
+          {/* back btn */}
+          <TouchableOpacity
+            style={styles.background}
+            className="rounded-xl p-1"
+          >
+            <ChevronLeftIcon size="28" strokeWidth={2.5} color="white" />
+          </TouchableOpacity>
 
-export default MovieScreen
+          {/* heart/ like icon */}
+          <TouchableOpacity>
+            <HeartIcon size="35" color="white" />
+          </TouchableOpacity>
+        </SafeAreaView>
+      </View>
+    </ScrollView>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default MovieScreen;

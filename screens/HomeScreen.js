@@ -1,10 +1,4 @@
-import {
-  Text,
-  View,
-  Platform,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -16,8 +10,6 @@ import { styles } from "../theme";
 import TrendingMovies from "../components/TrendingMovies";
 import MovieList from "../components/MovieList";
 
-const platform = Platform.OS == "android";
-
 const HomeScreen = () => {
   const [trending, setTrending] = useState([1, 2, 3]);
   const [upcoming, setUpcoming] = useState([1, 2, 3]);
@@ -26,7 +18,7 @@ const HomeScreen = () => {
   return (
     <View className="flex-1 bg-neutral-800">
       {/* top head section */}
-      <SafeAreaView className={platform ? "mb-3 mx-2" : "-mb-2 mx-2"}>
+      <SafeAreaView className="mb-3 mx-2">
         <StatusBar style="light" />
         <View className="flex-row justify-between items-center mx4">
           {/* options icon */}
