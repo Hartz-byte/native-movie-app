@@ -21,6 +21,7 @@ const MovieScreen = () => {
   const navigation = useNavigation();
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const movieName = "Avengers: End Game";
 
   useEffect(() => {
     //  call the api
@@ -75,6 +76,39 @@ const MovieScreen = () => {
             className="absolute bottom-0"
           />
         </View>
+      </View>
+
+      {/* movie details */}
+      <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
+        {/* title */}
+        <Text className="text-white text-center text-3xl font-bold tracking-wider">
+          {movieName}
+        </Text>
+
+        {/* status, release date, runtime */}
+        <Text className="text-neutral-400 font-semibold text-base text-center">
+          Released . 2020 . 180 mins
+        </Text>
+
+        {/* genres */}
+        <View className="flex-row justify-center mx-4 space-x-2">
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            Action .
+          </Text>
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            Thrill .
+          </Text>
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            Comedy
+          </Text>
+        </View>
+
+        {/* description */}
+        <Text className="text-neutral-400 mx-4 tracking-wide">
+          description description description description description
+          description description description description description
+          description description description description description
+        </Text>
       </View>
     </ScrollView>
   );
