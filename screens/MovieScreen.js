@@ -13,6 +13,7 @@ import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme";
 import { LinearGradient } from "expo-linear-gradient";
+import Cast from "../components/Cast";
 
 var { width, height } = Dimensions.get("window");
 
@@ -21,6 +22,7 @@ const MovieScreen = () => {
   const navigation = useNavigation();
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [cast, setCast] = useState([1, 2, 3, 4, 5]);
   const movieName = "Avengers: End Game";
 
   useEffect(() => {
@@ -110,6 +112,9 @@ const MovieScreen = () => {
           description description description description description
         </Text>
       </View>
+
+      {/* cast */}
+      <Cast cast={cast} />
     </ScrollView>
   );
 };
