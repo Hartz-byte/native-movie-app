@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { XMarkIcon } from "react-native-heroicons/outline";
+import Loading from "../components/Loading";
 
 var { width, height } = Dimensions.get("window");
 const movieName = "Avengers: End Game";
@@ -19,6 +20,7 @@ const movieName = "Avengers: End Game";
 const SearchScreen = () => {
   const navigation = useNavigation();
   const [results, setResult] = useState([1, 2, 3, 4, 5]);
+  const [loading, setLoading] = useState(false);
 
   return (
     <SafeAreaView className="bg-neutral-800 flex-1">
@@ -38,8 +40,10 @@ const SearchScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* search results */}
-      {results.length > 0 ? (
+      {/* loading check */}
+      {loading ? (
+        <Loading />
+      ) : results.length > 0 ? (
         <ScrollView
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -83,6 +87,8 @@ const SearchScreen = () => {
           />
         </View>
       )}
+
+      {/* search results */}
     </SafeAreaView>
   );
 };

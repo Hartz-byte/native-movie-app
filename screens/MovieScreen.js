@@ -15,6 +15,7 @@ import { styles, theme } from "../theme";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/Cast";
 import MovieList from "../components/MovieList";
+import Loading from "../components/Loading";
 
 var { width, height } = Dimensions.get("window");
 
@@ -25,6 +26,7 @@ const MovieScreen = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [cast, setCast] = useState([1, 2, 3, 4, 5]);
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
+  const [loading, setLoading] = useState(false);
   const movieName = "Avengers: End Game";
 
   useEffect(() => {
@@ -60,26 +62,32 @@ const MovieScreen = () => {
             />
           </TouchableOpacity>
         </SafeAreaView>
-        <View>
-          {/* movie screen poster */}
-          <Image
-            source={require("../assets/images/moviePoster2.png")}
-            style={{ width, height: height * 0.55 }}
-          />
 
-          {/* linear gradient */}
-          <LinearGradient
-            colors={[
-              "transparent",
-              "rgba(23, 23, 23, 0.8)",
-              "rgba(23, 23, 23, 1)",
-            ]}
-            style={{ width, height: height * 0.4 }}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
-            className="absolute bottom-0"
-          />
-        </View>
+        {/* loading check */}
+        {loading ? (
+          <Loading />
+        ) : (
+          <View>
+            {/* movie screen poster */}
+            <Image
+              source={require("../assets/images/moviePoster2.png")}
+              style={{ width, height: height * 0.55 }}
+            />
+
+            {/* linear gradient */}
+            <LinearGradient
+              colors={[
+                "transparent",
+                "rgba(23, 23, 23, 0.8)",
+                "rgba(23, 23, 23, 1)",
+              ]}
+              style={{ width, height: height * 0.4 }}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 0.5, y: 1 }}
+              className="absolute bottom-0"
+            />
+          </View>
+        )}
       </View>
 
       {/* movie details */}
@@ -119,7 +127,11 @@ const MovieScreen = () => {
       <Cast navigation={navigation} cast={cast} />
 
       {/* similar movies */}
-      <MovieList title="Similar Movies" hideSeeAll={true} data={similarMovies} />
+      <MovieList
+        title="Similar Movies"
+        hideSeeAll={true}
+        data={similarMovies}
+      />
     </ScrollView>
   );
 };
