@@ -14,18 +14,20 @@ import { useNavigation } from "@react-navigation/native";
 var { width, height } = Dimensions.get("window");
 const movieName = "Avengers: End Game";
 
-const MovieList = ({ title, data }) => {
+const MovieList = ({ title, data, hideSeeAll }) => {
   const navigation = useNavigation();
 
   return (
     <View className="mb-8 space-y-4">
       <View className="mx-4 flex-row justify-between items-center">
         <Text className="text-white text-xl">{title}</Text>
-        <TouchableOpacity>
-          <Text style={styles.text} className="text-lg">
-            See All
-          </Text>
-        </TouchableOpacity>
+        {!hideSeeAll && (
+          <TouchableOpacity>
+            <Text style={styles.text} className="text-lg">
+              See All
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* movie row */}
@@ -39,7 +41,7 @@ const MovieList = ({ title, data }) => {
             <TouchableWithoutFeedback
               key={index}
               onPress={() => {
-                navigation.navigate("Movie", item);
+                navigation.push("Movie", item);
               }}
             >
               <View>

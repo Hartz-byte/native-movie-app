@@ -14,6 +14,7 @@ import { HeartIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/Cast";
+import MovieList from "../components/MovieList";
 
 var { width, height } = Dimensions.get("window");
 
@@ -23,6 +24,7 @@ const MovieScreen = () => {
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [cast, setCast] = useState([1, 2, 3, 4, 5]);
+  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
   const movieName = "Avengers: End Game";
 
   useEffect(() => {
@@ -114,7 +116,10 @@ const MovieScreen = () => {
       </View>
 
       {/* cast */}
-      <Cast cast={cast} />
+      <Cast navigation={navigation} cast={cast} />
+
+      {/* similar movies */}
+      <MovieList title="Similar Movies" hideSeeAll={true} data={similarMovies} />
     </ScrollView>
   );
 };
