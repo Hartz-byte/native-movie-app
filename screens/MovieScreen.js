@@ -16,6 +16,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/Cast";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
+import { fallbackMoviePoster, fetchMovieDetails, fetchMovieCredits, image500 } from "../api";
 
 var { width, height } = Dimensions.get("window");
 
@@ -24,14 +25,28 @@ const MovieScreen = () => {
   const navigation = useNavigation();
 
   const [isFavorite, setIsFavorite] = useState(false);
-  const [cast, setCast] = useState([1, 2, 3, 4, 5]);
-  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
+  const [cast, setCast] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const movieName = "Avengers: End Game";
+  const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    //  call the api
+    setLoading(true);
+    getMovieDetails(item.id);
+    getMovieCredits(item.id);
   }, [item]);
+
+  const getMovieDetails = async (id) => {
+    const data = await fetchMovieDetails(id);
+
+    if (data) setMovie(data);
+    setLoading(false);
+  };
+
+  const getMovieCredits = async (id) => {
+    const data = await fetchMovieCredits(id);
+    if (data && data.cast) setCast(data.cast);
+  };
 
   return (
     <ScrollView
@@ -70,7 +85,9 @@ const MovieScreen = () => {
           <View>
             {/* movie screen poster */}
             <Image
-              source={require("../assets/images/moviePoster2.png")}
+              source={{
+                uri: image500(movie?.poster_path) || fallbackMoviePoster,
+              }}
               style={{ width, height: height * 0.55 }}
             />
 
@@ -94,32 +111,35 @@ const MovieScreen = () => {
       <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
         {/* title */}
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          {movieName}
+          {movie?.title}
         </Text>
 
         {/* status, release date, runtime */}
-        <Text className="text-neutral-400 font-semibold text-base text-center">
-          Released . 2020 . 180 mins
-        </Text>
+        {movie?.id ? (
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            {movie?.status} . {movie?.release_date?.split("-")[0]} .{" "}
+            {movie?.runtime} mins
+          </Text>
+        ) : null}
 
         {/* genres */}
         <View className="flex-row justify-center mx-4 space-x-2">
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Action .
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Thrill .
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Comedy
-          </Text>
+          {movie?.genres?.map((genre, index) => {
+            let showDot = index + 1 != movie.genres.length;
+            return (
+              <Text
+                key={index}
+                className="text-neutral-400 font-semibold text-base text-center"
+              >
+                {genre?.name} {showDot ? "." : null}
+              </Text>
+            );
+          })}
         </View>
 
         {/* description */}
         <Text className="text-neutral-400 mx-4 tracking-wide">
-          description description description description description
-          description description description description description
-          description description description description description
+          {movie?.overview}
         </Text>
       </View>
 
