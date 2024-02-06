@@ -11,17 +11,23 @@ import TrendingMovies from "../components/TrendingMovies";
 import MovieList from "../components/MovieList";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "../components/Loading";
-import { fetchTrendingMovies } from "../api";
+import {
+  fetchTopRatedMovies,
+  fetchTrendingMovies,
+  fetchUpcomingMovies,
+} from "../api";
 
 const HomeScreen = () => {
-  const [trending, setTrending] = useState([1, 2, 3]);
-  const [upcoming, setUpcoming] = useState([1, 2, 3]);
-  const [topRated, setTopRated] = useState([1, 2, 3]);
+  const [trending, setTrending] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [topRated, setTopRated] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
     getTrendingMovies();
+    getUpcomingMovies();
+    getTopRatedMovies();
   }, []);
 
   const getTrendingMovies = async () => {
@@ -31,6 +37,22 @@ const HomeScreen = () => {
       setTrending(data.results);
     }
     setLoading(false);
+  };
+
+  const getUpcomingMovies = async () => {
+    const data = await fetchUpcomingMovies();
+
+    if (data && data.results) {
+      setUpcoming(data.results);
+    }
+  };
+
+  const getTopRatedMovies = async () => {
+    const data = await fetchTopRatedMovies();
+
+    if (data && data.results) {
+      setTopRated(data.results);
+    }
   };
 
   return (
@@ -65,7 +87,7 @@ const HomeScreen = () => {
           className="mx-2"
         >
           {/* trending movies section */}
-          { trending.length > 0 && <TrendingMovies data={trending} />}
+          {trending.length > 0 && <TrendingMovies data={trending} />}
 
           {/* upcmonig movies */}
           <MovieList title="Upcoming" data={upcoming} />
